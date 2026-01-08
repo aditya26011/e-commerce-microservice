@@ -1,0 +1,29 @@
+INSERT INTO orders (total_price,order_status) VALUES
+(1299.00,'PENDING'),
+(24999.00,'CONFIRMED'),
+(79999.00,'DELIVERED'),
+(4999.00,'CANCELLED'),
+(3499.00,'PENDING'),
+(18999.00,'CONFIRMED'),
+(114999.00,'DELIVERED'),
+(5999.00,'PENDING'),
+(2199.00,'CONFIRMED'),
+(44999.00,'DELIVERED');
+
+
+
+INSERT INTO order_items (order_id,product_id, quantity) VALUES
+(1,101,2),
+(1,102,1),
+(2,103,1),
+(2,104,3),
+(3,105,1),
+(3,106,2),
+(4,107,2),
+(5,108,3),
+(6,109,2),
+(7,110,1),
+(8,111,2),
+(9,112,3),
+(10,113,2);
+
