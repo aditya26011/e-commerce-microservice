@@ -2,6 +2,7 @@ package com.codingshuttle.ecommerce.inventory_service.controllers;
 
 
 import com.codingshuttle.ecommerce.inventory_service.Product.ProductService;
+import com.codingshuttle.ecommerce.inventory_service.clients.OrdersFeignClient;
 import com.codingshuttle.ecommerce.inventory_service.dto.ProductDto;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -27,22 +28,26 @@ public class ProductController {
     private final DiscoveryClient discoveryClient;
     private final RestClient restClient;
 
+    private final OrdersFeignClient ordersfeignClient;
+
     @GetMapping("/fetchOrders")
     public String fetchFromOrdersService(HttpServletRequest httpServletRequest){
 
         log.info(httpServletRequest.getHeader("x-custom-header"));
 
-        ServiceInstance orderService = discoveryClient
-                .getInstances("order-service")
-                .stream()
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Order-service not available"));
+//        ServiceInstance orderService = discoveryClient
+//                .getInstances("order-service")
+//                .stream()
+//                .findFirst()
+//                .orElseThrow(() -> new RuntimeException("Order-service not available"));
 
 
 
-        return restClient.get()
-               .uri(orderService.getUri()+"/orders/core/helloOrders")
-               .retrieve().body(String.class);
+//        return restClient.get()
+//               .uri(orderService.getUri()+"/orders/core/helloOrders")
+//               .retrieve().body(String.class);
+
+        return ordersfeignClient.helloOrders();
 
     }
 
