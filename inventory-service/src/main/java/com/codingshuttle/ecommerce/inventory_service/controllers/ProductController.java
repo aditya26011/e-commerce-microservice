@@ -3,6 +3,7 @@ package com.codingshuttle.ecommerce.inventory_service.controllers;
 
 import com.codingshuttle.ecommerce.inventory_service.Product.ProductService;
 import com.codingshuttle.ecommerce.inventory_service.dto.ProductDto;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.client.ServiceInstance;
@@ -27,7 +28,10 @@ public class ProductController {
     private final RestClient restClient;
 
     @GetMapping("/fetchOrders")
-    public String fetchFromOrdersService(){
+    public String fetchFromOrdersService(HttpServletRequest httpServletRequest){
+
+        log.info(httpServletRequest.getHeader("x-custom-header"));
+
         ServiceInstance orderService = discoveryClient
                 .getInstances("order-service")
                 .stream()
@@ -37,7 +41,7 @@ public class ProductController {
 
 
         return restClient.get()
-               .uri(orderService.getUri()+"/api/v1/orders/helloOrders")
+               .uri(orderService.getUri()+"/orders/core/helloOrders")
                .retrieve().body(String.class);
 
     }
