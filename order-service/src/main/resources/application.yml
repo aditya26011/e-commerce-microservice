@@ -12,10 +12,14 @@ management:
 
 resilience4j:
   retry:
-    instances:
-      inventoryRetry:
+    configs:
+      default:
         maxRetryAttempts: 3
         waitDuration: 100ms
+    instances:
+      inventoryRetry:
+        baseConfig: default
+        waitDuration: 200ms
 
   ratelimiter:
     instances:
